@@ -76,17 +76,21 @@ if [ ! -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ]; then
 	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$HOME/.oh-my-zsh/custom/themes/powerlevel10k"
 fi
 
-if ! grep -q 'export GIT_EMAIL=' "$HOME/.zshrc"; then
-	echo "export GIT_EMAIL=\"$EMAIL\"" >> "$HOME/.zshrc"
-else
-	sed -i "s|^export GIT_EMAIL=.*|export GIT_EMAIL=\"$EMAIL\"|" "$HOME/.zshrc"
-fi
+for var in GIT_AUTHOR_EMAIL GIT_COMMITTER_EMAIL; do
+	if ! grep -q "export $var=" "$HOME/.zshrc"; then
+		echo "export $var=\"$EMAIL\"" >> "$HOME/.zshrc"
+	else
+		sed -i "s|^export $var=.*|export $var=\"$EMAIL\"|" "$HOME/.zshrc"
+	fi
+done
 
-if ! grep -q 'export GIT_NAME=' "$HOME/.zshrc"; then
-	echo "export GIT_NAME=\"$NAME\"" >> "$HOME/.zshrc"
-else
-	sed -i "s|^export GIT_NAME=.*|export GIT_NAME=\"$NAME\"|" "$HOME/.zshrc"
-fi
+for var in GIT_AUTHOR_NAME GIT_COMMITTER_NAME; do
+	if ! grep -q "export $var=" "$HOME/.zshrc"; then
+		echo "export $var=\"$NAME\"" >> "$HOME/.zshrc"
+	else
+		sed -i "s|^export $var=.*|export $var=\"$NAME\"|" "$HOME/.zshrc"
+	fi
+done
 
 if ! grep -q 'export GIT_BRANCH=' "$HOME/.zshrc"; then
 	echo "export GIT_BRANCH=\"$BRANCH\"" >> "$HOME/.zshrc"
