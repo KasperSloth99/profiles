@@ -99,3 +99,5 @@ else
 fi
 
 echo "Finished setting up .gitconfig and .zshrc"
+echo ""
+echo "Please source $HOME/.zshrc"
