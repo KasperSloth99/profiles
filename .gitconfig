@@ -1,0 +1,23 @@
+[user]
+	email = $GIT_EMAIL
+	name = $GIT_NAME
+[alias]
+	unstage = restore --staged .
+	st = status
+	co = checkout
+	coi = "!f(){ n=${1:-1}; branch=$(git branch --format='%(refname:short)' | sed -n \"${n}p\"); if [ -z \"$branch\" ]; then echo \"No branch at position ${n}.\"; echo \"Tip: git bl to list branches with numbers.\"; exit 1; fi; git checkout \"$branch\"; }; f"
+	p = pull
+	rei = rebase origin/$GIT_BRANCH -i
+	l = log --oneline
+	amend = commit --amend --no-edit
+	com = co $GIT_BRANCH
+	undo = reset --soft HEAD~1
+	rec = rebase --continue
+	s = stash
+	sp = s pop
+	del = "!f() { git branch -D \"$1\" && git b; }; f"
+	cleanall = "!git for-each-ref --format=\"%(refname:short)\" refs/heads | grep \"^kslo/\" | while read -r b; do git branch -D \"$b\"; done"
+	b = "!git branch --color=always | nl -ba -w2 -s' '"
+	re = rebase origin/$GIT_BRANCH
+[cola]
+	spellcheck = false
